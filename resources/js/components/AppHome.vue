@@ -2,7 +2,7 @@
     <v-app>
         <app-bar></app-bar>
         <v-content>
-            <v-container>
+            <v-container>                            
                 <router-view></router-view>
             </v-container>
         </v-content>
@@ -12,9 +12,10 @@
 <script>
 
 import AppBar from './AppBar'
+import MainHome from './home/MainHome'
 
 export default {
-    components: {AppBar},
+    components: {AppBar, MainHome},
 }
 
 </script>

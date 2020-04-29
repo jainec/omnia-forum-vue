@@ -4,10 +4,14 @@
             <div class="" style="width: 70%;">
                 <v-row>
                     <div style="width: 12%; height: 48px;" class="">
-                        <v-img :src="'img/omnia.PNG'" width="120"></v-img>
+                        <router-link to='/home'>
+                            <v-img :src="'img/omnia.PNG'" width="120"></v-img>
+                        </router-link>
                     </div>
                     <div style="width: 10%; height: 48px;" class=" d-flex justify-center align-center">
-                        <h2 class="home-appbar">Home</h2>
+                        <router-link to='/home'>
+                            <h2 class="home-appbar">Home</h2>
+                        </router-link>
                     </div>
                     <div style="width: 40%; height: 48px;" class=" ml-10 mr-10 mt-1"> 
                         <v-text-field
@@ -18,10 +22,8 @@
                         dense
                         ></v-text-field>
                     </div>
-                    <div style="width: 5%; height: 48px;" class="d-flex justify-center align-center"> 
-                        <v-btn icon>
-                            <span class="material-icons">notification_important</span>
-                        </v-btn>
+                    <div style="width: 5%; height: 48px;" class="d-flex justify-center align-center">                         
+                        <span class="material-icons">notification_important</span>                        
                     </div>
                     <div style="width: 5%; height: 48px;" class="d-flex justify-center align-center">                 
                         <v-menu
@@ -37,7 +39,9 @@
                             </template>
                             <v-list>
                             <v-list-item>
-                                <v-list-item-title>My profile</v-list-item-title>
+                                <v-list-item-title>
+                                    <router-link to="/profile">My profile</router-link>
+                                </v-list-item-title>
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-title>My questions</v-list-item-title>
