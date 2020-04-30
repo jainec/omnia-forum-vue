@@ -47,9 +47,7 @@
         </div>
 
         <v-card-text>
-           <v-text-field
-            v-model="email"
-            :rules="emailRules"
+           <v-text-field            
             placeholder='Start your question with "What", "How", "Why", etc'
             required
             class="pt-0 mt-0"

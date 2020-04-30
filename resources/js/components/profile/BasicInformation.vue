@@ -74,7 +74,8 @@ export default {
 
     data: function() {
         return {
-            title: 'Basic Information'
+            title: 'Basic Information',
+            profile: {},
         };
     },
             

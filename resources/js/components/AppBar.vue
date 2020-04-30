@@ -51,9 +51,14 @@
                     </div>
 
                     <div style="width: 15%; height: 48px;" class="d-flex justify-center align-center "> 
+                        <question-modal></question-modal>                         
+                    </div>
+
+                    <div style="width: 15%; height: 48px;" class="d-flex justify-center align-center "> 
                         <!-- <Question></Question> -->
                          <router-link to="/login">Login</router-link>
                     </div>
+                    
 
                     <div style="width: 5%; height: 48px;" class="d-flex justify-end align-center"> 
                         <v-btn icon>
@@ -71,10 +76,10 @@
 
 <script>
 
-// import Question from './question/Question'
+import QuestionModal from './question/QuestionModal'
 
 export default {
-    components: {}
+    components: {QuestionModal}
 }
 </script>
 
