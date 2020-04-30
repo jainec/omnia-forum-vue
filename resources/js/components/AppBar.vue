@@ -8,7 +8,7 @@
                             <v-img :src="'img/omnia.PNG'" width="120"></v-img>
                         </router-link>
                     </div>
-                    <div style="width: 10%; height: 48px;" class=" d-flex justify-center align-center">
+                    <!-- <div style="width: 10%; height: 48px;" class=" d-flex justify-center align-center">
                         <router-link to='/home'>
                             <h2 class="home-appbar">Home</h2>
                         </router-link>
@@ -55,7 +55,7 @@
                     </div>
 
                     <div style="width: 15%; height: 48px;" class="d-flex justify-center align-center "> 
-                        <!-- <Question></Question> -->
+                        <Question></Question> 
                          <router-link to="/login">Login</router-link>
                     </div>
                     
@@ -64,7 +64,16 @@
                         <v-btn icon>
                             <span class="material-icons">exit_to_app</span>  
                         </v-btn>
-                    </div>
+                    </div> -->                    
+                    <router-link
+                        v-for="item in items"
+                        :key="item.title"
+                        :to="item.to"
+                        v-if="item.show"
+                    >
+                        <v-btn>{{item.title}}</v-btn>
+
+                    </router-link>
 
                 </v-row>                
             </div>        
@@ -79,7 +88,25 @@
 import QuestionModal from './question/QuestionModal'
 
 export default {
-    components: {QuestionModal}
+    components: {QuestionModal},
+    data() {
+        return {
+            items: [
+                {title: 'Home', to: '/home', show: true},
+                {title: 'Login', to: '/login', show: !User.loggedIn()},                
+                {title: 'Ask Question', to: '/ask', show: User.loggedIn()},
+                {title: 'Category', to: '/category', show: User.loggedIn()},
+                {title: 'Logout', to: '/logout', show: User.loggedIn()},
+            
+            ],
+        }
+    },
+
+    created() {
+        EventBus.$on('logout', () => {
+            User.logout()
+        })
+    }
 }
 </script>
 

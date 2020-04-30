@@ -10,8 +10,10 @@ class User {
 
     responseAfterLogin(res) {
         const access_token = res.data.access_token;
-        if (Token.isValid(access_token))
+        if (Token.isValid(access_token)) {
             AppStorage.store(res.data.user, access_token);
+            window.location = '/home'
+        }
     }
 
     hasToken() {
@@ -27,6 +29,7 @@ class User {
 
     logout() {
         AppStorage.clear()
+        window.location = '/home'
     }
 
     name() {

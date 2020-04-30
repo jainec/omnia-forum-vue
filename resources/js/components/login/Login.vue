@@ -41,6 +41,10 @@
             >
                 Login
                 </v-btn>
+
+            <div class="d-flex justify-center">
+                Are you not registered?	&nbsp;<router-link to='signup'> Sign up</router-link>
+            </div>
         </v-form>
         
         <v-divider ></v-divider>
@@ -77,9 +81,14 @@
         }
     },
 
+    created() {
+        if(User.loggedIn())
+            this.$router.push({name: 'home'});
+    },
+
     methods: {
         login() {
-           User.login(this.form)
+           User.login(this.form)           
         }
     },
 
