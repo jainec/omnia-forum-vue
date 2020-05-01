@@ -43,6 +43,11 @@ class User {
             return payload.sub;
         }
     }
+
+    own(user_id) {
+        console.log(user_id);
+        return this.id() == user_id ? true : false;
+    }
 }
 
 export default User = new User();

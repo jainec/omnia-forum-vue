@@ -74,6 +74,9 @@
                         <v-btn>{{item.title}}</v-btn>
 
                     </router-link>
+                    <div style="width: 15%; height: 48px;" class="d-flex justify-center align-center "> 
+                        <question-modal></question-modal>                         
+                    </div>
 
                 </v-row>                
             </div>        
@@ -94,7 +97,7 @@ export default {
             items: [
                 {title: 'Home', to: '/home', show: true},
                 {title: 'Login', to: '/login', show: !User.loggedIn()},                
-                {title: 'Ask Question', to: '/ask', show: User.loggedIn()},
+                // {title: 'Ask Question', to: '/ask', show: User.loggedIn()},
                 {title: 'Category', to: '/category', show: User.loggedIn()},
                 {title: 'Logout', to: '/logout', show: User.loggedIn()},
             

@@ -4,7 +4,10 @@
             cols="12"
             md="8"            
         >
-           <div class="mr-12"><Replies></Replies></div>
+           <div class="mr-12">
+                <Header :question="question"></Header>
+                <Timeline :replies="replies"></Timeline>
+            </div>
         </v-col>
         <v-col
             cols="12"
@@ -17,9 +20,25 @@
 
 <script>
 import RelatedQuestions from './RelatedQuestions'
-import Replies from './Replies'
+import Timeline from './Timeline'
+import Header from './Header'
 
 export default {
-    components: {RelatedQuestions, Replies}
+    components: {RelatedQuestions, Timeline, Header},
+
+    data() {
+        return {
+            replies: {},
+            question: {},
+        }
+    },
+
+    created() {
+        axios.get(`http://127.0.0.1:8000/api/question/${this.$route.params.slug}/reply/`)
+        .then(res => this.replies = res.data.data);
+
+        axios.get(`http://127.0.0.1:8000/api/questions/${this.$route.params.slug}`)
+        .then(res => this.question = res.data.data);
+    }
 }
 </script>
