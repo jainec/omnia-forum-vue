@@ -58,7 +58,7 @@ export default {
     props: ['question'],
     data() {
         return {            
-            own: User.own(23),
+            own: User.own(this.question.user_id),
         }
     },
     methods: {
@@ -67,7 +67,7 @@ export default {
             .then(res => this.$router.push('/home'))
             .catch(error => console.log(error.response.data))
         }
-    }
+    },   
 }
 </script>
 

@@ -5,66 +5,50 @@
       width="600"   
     >
       <template v-slot:activator="{ on }">
-       <v-btn
-            icon
-            color="teal"
-            dark
-            v-on="on"
-            style="text-transform: none"
+        <v-btn
+          color="purple darken-2"
+          dark
+          v-on="on"
+          style="text-transform: none"
+          height="25"          
+          width="130"
         >
-            <span class="material-icons">create</span> 
+          <span style="color: white">Add category</span>
         </v-btn>
       </template>
 
-      <v-form @submit.prevent="edit">
+      <v-form @submit.prevent="addCategory">
         <v-card>
           <v-card-title
             class="lighten-2 light-gray"
             style="height: 50px; padding: 10px;"          
           >
-            <h5 style="margin-left: 10px">Edit question</h5>
+            <h5 style="margin-left: 10px">Add a new question</h5>
             <v-spacer></v-spacer>
             <v-btn icon @click="dialog = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
 
-          </v-card-title>
-
-          <!-- <div id="div-tips">
-            <b>Tips for getting good answers quickly</b>
-            <p>Make sure your question has not been asked before<br>
-            Keep your question short and get to the point<br>
-            Check grammar and spelling </p>
-          </div> -->
+          </v-card-title>         
 
           <div class="row px-4">
               <div class="ma-left-10 mt-4">
                 <v-img class="circle-icon" src="https://picsum.photos/510/300?random" aspect-ratio="1.7" width="40" height="40"></v-img>
               </div>            
               <div class="col mt-3 ml-0">
-                <p style="font-size: 15px;">{{question.user}} asked</p>
+                <p style="font-size: 15px;">{{user_name}}</p>
               </div>            
           </div>
      
           <v-card-text class="px-10">
             <v-text-field            
-              placeholder='Start your question with "What", "How", "Why", etc'
+              placeholder='Name'
               required
               class="pt-0 mt-0"
               color="purple darken2"
-              v-model="form.description"
-              :value="question.description"
-              
-            ></v-text-field>                
-            <!-- <v-select
-              :items="categories"
-              item-text="name"
-              item-value="id"
-              label="Category"
-              v-model="form.category_id"
-              color="purple darken2"              
-              required
-            ></v-select> -->
+              v-model="form.name"
+            ></v-text-field>
+           
           </v-card-text>
         
           
@@ -85,31 +69,29 @@
 
 <script>
   export default {
-    props: ['question'],
     data () {
       return {
-        dialog: false,
+        dialog: false,        
         form: {
-          description: null,
-        //   category_id: null,
+          name: null,
         },
+        user_name: User.name(),
         errors: {}
       }
     },
 
     methods: {
-      edit() {
-        axios.patch(`http://127.0.0.1:8000/api/questions/${this.$route.params.slug}`, this.form)
-        .then(res => this.$router.push(res.data.question.path))
-        .catch(error => this.errors = error.response.data.error)
+      addCategory() {
+          axios.post('http://127.0.0.1:8000/api/categories', this.form)
+          .then(res => {
+            if(this.$route.path != '/home')
+              this.$router.push({name: 'home'});
+            else 
+              this.$router.go()
+          });
       },
     },
 
-    created() {
-        axios.get('http://127.0.0.1:8000/api/categories')
-        .then(res => this.categories = res.data.data);
-        this.form = this.question;
-    },    
   }
 </script>
 

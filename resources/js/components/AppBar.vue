@@ -78,6 +78,10 @@
                         <question-modal></question-modal>                         
                     </div>
 
+                     <div style="width: 15%; height: 48px;" class="d-flex justify-center align-center "> 
+                        <create-modal></create-modal>                         
+                    </div>
+
                 </v-row>                
             </div>        
         </div>            
@@ -89,9 +93,10 @@
 <script>
 
 import QuestionModal from './question/QuestionModal'
+import CreateModal from './category/CreateModal'
 
 export default {
-    components: {QuestionModal},
+    components: {QuestionModal, CreateModal},
     data() {
         return {
             items: [

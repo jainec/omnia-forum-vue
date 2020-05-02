@@ -26,7 +26,7 @@
         </v-list-item>
 
         <v-card-actions>          
-          <v-chip class="ma-2" color="primary" small label>{{question.category}}</v-chip>
+          <v-chip class="ma-2" color="primary" small label :v-model="question.category">{{question.category}}</v-chip>
           <v-btn text><v-icon color="blue darken-2">mdi-message-text</v-icon><router-link to='/question'><small style="margin-left: 5px;">{{question.number_replies}} answers</small></router-link></v-btn>
           <v-row
             align="center"

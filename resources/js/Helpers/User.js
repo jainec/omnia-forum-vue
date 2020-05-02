@@ -45,8 +45,11 @@ class User {
     }
 
     own(user_id) {
-        console.log(user_id);
         return this.id() == user_id ? true : false;
+    }
+
+    admin() {
+        return this.id() == 11 ? true : false;
     }
 }
 

@@ -5,8 +5,8 @@
             md="8"            
         >
            <div class="mr-12">
-                <Header :question="question"></Header>
-                <Timeline :replies="replies"></Timeline>
+                <Header v-if="question" :question="question"></Header>
+                <Timeline v-if="replies" :replies="replies"></Timeline>
             </div>
         </v-col>
         <v-col
@@ -28,8 +28,8 @@ export default {
 
     data() {
         return {
-            replies: {},
-            question: {},
+            replies: null,
+            question: null,
         }
     },
 
