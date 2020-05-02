@@ -18,24 +18,24 @@
 
 <script>
     export default {
-        props: ['category'],
+        props: ['category', 'index'],
         data() {
             return {
                 form: {
                     name: null,
                     id: null,
-                }
+                },
             }
         },
 
         created() {
-            this.form = this.category
+            this.form = Vue.util.extend({}, this.category)
         },
 
         methods: {
             edit() {
                 axios.patch(`http://127.0.0.1:8000/api/categories/${this.category.id}`, this.form)
-                .then(res => EventBus.$emit('edited'))
+                .then(res => EventBus.$emit('edited', this.form, this.index))
                 .catch(error => this.errors = error.response.data.error)
             }
         }

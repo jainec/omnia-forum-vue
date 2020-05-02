@@ -6,7 +6,7 @@
         :reverse="reverse"                    
         >
             <v-timeline-item       
-                v-for="reply in replies"
+                v-for="(reply, index) in content"
                 :key="reply.id"        
                 :fill-dot="fillDot"
                 :hide-dot="hideDot"
@@ -24,7 +24,7 @@
                 </template>
                 <span slot="opposite">Tus eu perfecto</span>
                 <Reply                   
-                    :reply="reply"
+                    :reply="reply" :index="index"
                 ></Reply>
             </v-timeline-item>
         </v-timeline>
@@ -33,32 +33,51 @@
 
 <script>
 
-import TextEditor from './TextEditor'
 import Reply from './Reply'
 
   export default {
-    components: {TextEditor, Reply},
-    data: () => ({
-      alignTop: false,
-      avatar: false,
-      dense: false,
-      fillDot: false,
-      hideDot: false,
-      icon: false,
-      iconColor: false,
-      left: false,
-      reverse: false,
-      right: false,
-      small: false,
-      isActive: false,
-    }),
+    components: {Reply},
 
     props: ['replies'],
 
+    data() {
+        return {
+            alignTop: false,
+            avatar: false,
+            dense: false,
+            fillDot: false,
+            hideDot: false,
+            icon: false,
+            iconColor: false,
+            left: false,
+            reverse: false,
+            right: false,
+            small: false,
+            isActive: false,
+            content: this.replies,
+        }
+    },
+      
+    created() {
+        this.listen()
+    },
+
     methods: {
         toggleEditor: function() {
-        this.isActive = !this.isActive;
-        }
+            this.isActive = !this.isActive;
+        },
+
+        listen() {
+            EventBus.$on('add_reply', (reply) => {            
+                this.content.unshift(reply);
+                // window.scrollTo(0,0);
+            });
+
+            EventBus.$on('delete_reply', (index) => {                
+                axios.delete(`http://127.0.0.1:8000/api/question/${this.$route.params.slug}/reply/${this.content[index].id}`)
+                .then(res =>   this.content.splice(index,1));              
+            });
+        },
     }
   }
 </script>

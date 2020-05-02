@@ -99,8 +99,8 @@
 
     methods: {
       edit() {
-        axios.patch(`http://127.0.0.1:8000/api/questions/${this.$route.params.slug}`, this.form)
-        .then(res => this.$router.push(res.data.question.path))
+        axios.patch(`http://127.0.0.1:8000/api/questions/${this.$route.params.slug}`, this.form)        
+        .then(res =>{console.log(res.data.question.path); this.$router.push(res.data.question.path)})
         .catch(error => this.errors = error.response.data.error)
       },
     },

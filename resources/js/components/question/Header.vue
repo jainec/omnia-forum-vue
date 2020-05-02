@@ -35,30 +35,31 @@
                 <v-chip color="primary" small label>{{question.category}}</v-chip>
             </div>
             <div class="col-sm-1">
-                <v-btn text id="btn-answer" @click="toggleEditor()"><span class="material-icons icon-answer">add_comment</span> Answer</v-btn>
+                <v-btn text id="btn-answer" @click="toggleEditor()"><span class="material-icons icon-answer">add_comment</span> Reply</v-btn>
             </div>
         </div>       
-        <!-- <div id="text-editor"
-            v-if="isActive"
-        >
-            <text-editor></text-editor>               
-        </div> -->
+        
+        <div>
+            <new-reply v-if="show_editor"></new-reply>
+        </div>
         
         <div class="mb-1">
-            <span class="answers-title">{{question.number_replies}} answers</span>
+            <span class="answers-title">{{question.number_replies}} replies</span>
         </div>
         <v-divider></v-divider>
     </div>   
 </template>
 
 <script>
+import NewReply from './NewReply'
 import EditQuestion from './EditQuestion'
 export default {
-    components: {EditQuestion},
+    components: {NewReply, EditQuestion},
     props: ['question'],
     data() {
         return {            
             own: User.own(this.question.user_id),
+            show_editor: false,
         }
     },
     methods: {
@@ -66,6 +67,10 @@ export default {
             axios.delete(`http://127.0.0.1:8000/api/questions/${this.$route.params.slug}`)
             .then(res => this.$router.push('/home'))
             .catch(error => console.log(error.response.data))
+        }, 
+        
+        toggleEditor() {
+            return this.show_editor = !this.show_editor;
         }
     },   
 }

@@ -31,14 +31,14 @@
             <v-list-item-content>
               <v-row>
                 <v-col>
-                  <v-list-item-title v-if="!show_edit" v-text="category.name"></v-list-item-title>
-                  <edit-category v-if="show_edit" :category="category"></edit-category>
+                  <v-list-item-title v-if="!show_edit || row != index" v-text="category.name"></v-list-item-title>
+                  <edit-category v-if="show_edit && row == index" :category="category" :index="index"></edit-category>
                 </v-col>
                 <v-col v-if="admin">
                   <v-btn 
                     icon
                     color="yellow"
-                    @click="edit"
+                    @click="edit(index)"
                   >
                     <span class="material-icons">edit</span> 
                   </v-btn>
@@ -72,6 +72,7 @@ import EditCategory from '../category/EditCategory'
         categories: {},
         show_edit: false,
         admin: User.admin(),
+        row: null,
       }
     },
 
@@ -90,12 +91,14 @@ import EditCategory from '../category/EditCategory'
         .then(res => this.categories.splice(index, 1));
       },      
 
-      edit() {
+      edit(index) {
         this.show_edit = !this.show_edit;
+        this.row = index;
       },
 
       listen() {
-        EventBus.$on('edited', () => {
+        EventBus.$on('edited', (category, index) => {
+          this.categories[index].name = category.name
           this.show_edit = false;
         });
       },

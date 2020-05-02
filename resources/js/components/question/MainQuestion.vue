@@ -6,7 +6,7 @@
         >
            <div class="mr-12">
                 <Header v-if="question" :question="question"></Header>
-                <Timeline v-if="replies" :replies="replies"></Timeline>
+                <Timeline v-if="question" :replies="question.replies"></Timeline>
             </div>
         </v-col>
         <v-col
@@ -34,11 +34,11 @@ export default {
     },
 
     created() {
-        axios.get(`http://127.0.0.1:8000/api/question/${this.$route.params.slug}/reply/`)
-        .then(res => this.replies = res.data.data);
+        // axios.get(`http://127.0.0.1:8000/api/question/${this.$route.params.slug}/reply/`)
+        // .then(res => this.replies = res.data.data);
 
         axios.get(`http://127.0.0.1:8000/api/questions/${this.$route.params.slug}`)
         .then(res => this.question = res.data.data);
-    }
+    }, 
 }
 </script>
