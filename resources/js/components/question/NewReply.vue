@@ -1,6 +1,9 @@
 <template>
     <div>
-        <v-row>
+        <v-alert v-if="errors" type="error">
+            {{this.errors.description[0]}}
+        </v-alert>
+        <v-row>           
             <v-textarea
                 outlined
                 name="input-7-4"
@@ -9,7 +12,7 @@
             ></v-textarea>
         </v-row>
         <v-row class="d-flex justify-end">
-            <v-btn color="green" dark @click="submit">
+            <v-btn color="green" :disabled="disabled" dark @click="submit">
                 Submit
             </v-btn>
         </v-row>
@@ -21,6 +24,13 @@ export default {
     data() {
         return {
             description: null,
+            errors: null
+        }
+    },
+
+    computed: {
+        disabled() {
+            return !(this.description)
         }
     },
 
@@ -30,7 +40,8 @@ export default {
             .then(res => {
                 this.description = '';
                 EventBus.$emit('add_reply', res.data.reply)
-            })
+                this.errors = null
+            }).catch(error => this.errors = error.response.data.errors)
         }
     }
 }

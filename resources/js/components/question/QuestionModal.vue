@@ -75,7 +75,7 @@
           >           
             <v-spacer></v-spacer>
             <v-btn color="purple darken-2" text @click="dialog = false" >Close</v-btn>
-            <v-btn color="purple darken-2" @click="dialog = false" type="submit">Ask</v-btn>
+            <v-btn color="purple darken-2" :disabled="disabled" @click="dialog = false" type="submit">Ask</v-btn>
           </v-card-actions>
         </v-card>
       </v-form>  
@@ -94,6 +94,12 @@
           category_id: null,
         },
         errors: {}
+      }
+    },
+
+    computed: {
+      disabled() {
+        return !(this.form.description && this.form.category_id)
       }
     },
 

@@ -10,6 +10,7 @@
             icon
             color="green"
             type="submit"
+            :disabled="disabled"
         >
             <span class="material-icons">save</span>
         </v-btn>
@@ -25,6 +26,12 @@
                     name: null,
                     id: null,
                 },
+            }
+        },
+
+        computed: {
+            disabled() {
+                return !(this.form.name)
             }
         },
 

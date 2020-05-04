@@ -7,7 +7,7 @@
             v-model="description"
         ></v-textarea>
         <v-row class="d-flex justify-end">
-            <v-btn @click="update" dark color="green">Save</v-btn>
+            <v-btn @click="update"  :disabled="disabled" dark color="green">Save</v-btn>
         </v-row>
     </div>
 </template>
@@ -21,6 +21,13 @@ export default {
             description: null,
         }
     },
+
+    computed: {
+      disabled() {
+        return !(this.description)
+      }
+    },
+
 
     created() {
         this.description = this.text

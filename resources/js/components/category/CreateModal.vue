@@ -59,7 +59,7 @@
           >           
             <v-spacer></v-spacer>
             <v-btn color="purple darken-2" text @click="dialog = false" >Close</v-btn>
-            <v-btn color="purple darken-2" @click="dialog = false" type="submit">Save</v-btn>
+            <v-btn color="purple darken-2" :disabled="disabled" @click="dialog = false" type="submit">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-form>  
@@ -77,6 +77,12 @@
         },
         user_name: User.name(),
         errors: {}
+      }
+    },
+
+    computed: {
+      disabled() {
+        return !(this.form.name)
       }
     },
 

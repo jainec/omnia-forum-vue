@@ -72,8 +72,12 @@
                         v-if="item.show"
                     >
                         <v-btn>{{item.title}}</v-btn>
-
                     </router-link>
+
+                    <div style="width: 15%; height: 48px;" class="d-flex justify-center align-center"> 
+                        <app-notification></app-notification>
+                    </div>
+
                     <div style="width: 15%; height: 48px;" class="d-flex justify-center align-center "> 
                         <question-modal></question-modal>                         
                     </div>
@@ -94,9 +98,10 @@
 
 import QuestionModal from './question/QuestionModal'
 import CreateModal from './category/CreateModal'
+import AppNotification from './AppNotification'
 
 export default {
-    components: {QuestionModal, CreateModal},
+    components: {QuestionModal, CreateModal, AppNotification},
     data() {
         return {
             items: [

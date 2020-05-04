@@ -35,7 +35,8 @@
                 <v-chip color="primary" small label>{{question.category}}</v-chip>
             </div>
             <div class="col-sm-1">
-                <v-btn text id="btn-answer" @click="toggleEditor()"><span class="material-icons icon-answer">add_comment</span> Reply</v-btn>
+                <v-btn v-if="loggedIn" text id="btn-answer" @click="toggleEditor()"><span class="material-icons icon-answer">add_comment</span> Reply</v-btn>
+                <router-link v-else to="/login">Login to reply</router-link>
             </div>
         </div>       
         
@@ -44,7 +45,7 @@
         </div>
         
         <div class="mb-1">
-            <span class="answers-title">{{question.number_replies}} replies</span>
+            <span class="answers-title">{{num_replies}} replies</span>
         </div>
         <v-divider></v-divider>
     </div>   
@@ -60,8 +61,20 @@ export default {
         return {            
             own: User.own(this.question.user_id),
             show_editor: false,
+            num_replies: this.question.number_replies,
         }
     },
+
+    computed: {
+        loggedIn() {
+            return User.loggedIn()
+        }
+    },
+
+    created() {
+       this.listen()
+    },
+
     methods: {
         destroy() {
             axios.delete(`http://127.0.0.1:8000/api/questions/${this.$route.params.slug}`)
@@ -71,6 +84,16 @@ export default {
         
         toggleEditor() {
             return this.show_editor = !this.show_editor;
+        },
+
+        listen() {
+             EventBus.$on('add_reply', () => {
+                this.num_replies++
+            })
+
+            EventBus.$on('delete_reply', () => {
+                this.num_replies--
+            })
         }
     },   
 }

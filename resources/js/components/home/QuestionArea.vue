@@ -12,7 +12,7 @@
               <v-avatar color="indigo" size="20" class="mr-2">
                 <v-img src="https://picsum.photos/510/300?random" aspect-ratio="1.7"></v-img>
               </v-avatar>
-              Jaine Conceicao
+              {{user_name}}
             </v-list-item-subtitle>
             <v-list-item-title class="mb-1"><a href="#" id="a-home"><span class="font-your-question">What is your question?</span></a></v-list-item-title>              
           </v-list-item-content>          
@@ -21,6 +21,17 @@
     </v-col>
   </v-row>    
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      user_name: User.name()
+    }
+  }
+}
+</script>
+
 
 <style>
 
